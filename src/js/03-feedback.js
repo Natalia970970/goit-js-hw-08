@@ -5,7 +5,7 @@ const input = document.querySelector('input');
 const textarea = document.querySelector('textarea');
 
 const savedData = localStorage.getItem("feedback-form-state");
-const formData = savedData ? JSON.parse(savedData) : {};
+let formData = savedData ? JSON.parse(savedData) : {};
 
 function onInput({target}) {
     formData[target.name] = target.value;
@@ -23,10 +23,9 @@ if (formData.message) {
 }
 
 form.addEventListener('submit', (e) => {
-    e.preventDefault()
-    input.value = '';
-    textarea.value = '';
+    e.preventDefault();
+    e.currentTarget.reset();
     localStorage.removeItem("feedback-form-state");
     console.log(formData);
-})
-
+    formData = {};
+});
